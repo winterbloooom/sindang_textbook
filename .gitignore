@@ -1,0 +1,6 @@
+assets/
+textbook/
+
+# temporal files
+memo.txt
+.DS_Store
