@@ -1,0 +1,904 @@
+@counter-style circled-digits {
+  system: fixed;
+  symbols: '①' '②' '③' '④' '⑤' '⑥' '⑦' '⑧' '⑨' '⑩' '⑪' '⑫' '⑬' '⑭' '⑮' '⑯' '⑰' '⑱' '⑲' '⑳';
+  suffix: ' ';
+}
+
+.editor-wrap {
+  position: relative;
+}
+
+.editor .ProseMirror {
+  outline: none;
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--g900);
+  counter-reset: sec;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  min-height: 200px;
+}
+
+/* ── Section heading h2 (mint badge + title, bottom border) ── */
+.editor .ProseMirror h2 {
+  display: flex;
+  align-items: center;
+  gap: 2.5mm;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--g900);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-top: 7mm;
+  margin-bottom: 4mm;
+  padding-bottom: 3mm;
+  border-bottom: 1.5px solid var(--g300);
+  counter-increment: sec;
+}
+
+.editor .ProseMirror h2:first-child {
+  margin-top: 0;
+}
+
+.editor .ProseMirror h2::before {
+  content: counter(sec);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8mm;
+  height: 8mm;
+  background: var(--mint-600);
+  color: var(--white);
+  border-radius: 4px;
+  font-size: 15pt;
+  font-weight: 700;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ── H3 sub-heading (mint square marker) ── */
+.editor .ProseMirror h3 {
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--mint-800);
+  margin-top: 5mm;
+  margin-bottom: 2.5mm;
+  line-height: 1.3;
+}
+
+.editor .ProseMirror h3::before {
+  content: '';
+  display: inline-block;
+  width: 3mm;
+  height: 3mm;
+  background: var(--mint-600);
+  flex-shrink: 0;
+}
+
+/* ── Paragraph ── */
+.editor .ProseMirror p {
+  margin: 0 0 2.5mm 0;
+  color: var(--g900);
+}
+
+.editor .ProseMirror strong {
+  font-weight: 700;
+  color: var(--g900);
+}
+
+/* ── Ordered list — 4 depths: 1. / 1) / (1) / ① ── */
+.editor .ProseMirror ol,
+.editor .ProseMirror ul {
+  margin: 0 0 3mm 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.editor .ProseMirror ol {
+  counter-reset: ol1;
+}
+
+.editor .ProseMirror li {
+  position: relative;
+  padding-left: 7mm;
+  margin: 0 0 3.5mm 0;
+}
+
+.editor .ProseMirror ul > li {
+  margin-bottom: 2.5mm;
+}
+
+.editor .ProseMirror li > p {
+  margin: 0;
+}
+
+.editor .ProseMirror ul > li::before {
+  content: '•';
+  position: absolute;
+  left: 1.5mm;
+  top: 0;
+  font-weight: 600;
+}
+
+.editor .ProseMirror ol > li {
+  counter-increment: ol1;
+}
+
+.editor .ProseMirror ol > li::before {
+  content: counter(ol1) '.';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6mm;
+  text-align: left;
+  font-weight: 600;
+}
+
+.editor .ProseMirror ol ol,
+.editor .ProseMirror ol ul,
+.editor .ProseMirror ul ol,
+.editor .ProseMirror ul ul {
+  counter-reset: ol2;
+  margin: 1.5mm 0 1.5mm 0;
+}
+
+.editor .ProseMirror ol ol li,
+.editor .ProseMirror ol ul li,
+.editor .ProseMirror ul ol li,
+.editor .ProseMirror ul ul li {
+  margin-bottom: 1.5mm;
+}
+
+.editor .ProseMirror ol ol > li {
+  counter-increment: ol2;
+}
+
+.editor .ProseMirror ol ol > li::before {
+  content: counter(ol2) ')';
+  font-weight: 400;
+}
+
+.editor .ProseMirror ol ol ol {
+  counter-reset: ol3;
+}
+
+.editor .ProseMirror ol ol ol > li {
+  counter-increment: ol3;
+}
+
+.editor .ProseMirror ol ol ol > li::before {
+  content: '(' counter(ol3) ')';
+  font-weight: 400;
+}
+
+.editor .ProseMirror ol ol ol ol {
+  counter-reset: ol4;
+}
+
+.editor .ProseMirror ol ol ol ol > li {
+  counter-increment: ol4;
+}
+
+.editor .ProseMirror ol ol ol ol > li::before {
+  content: counter(ol4, circled-digits);
+  font-weight: 400;
+}
+
+/* ── Box (generic) ── */
+.editor .ProseMirror .bx {
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 4mm 0;
+  page-break-inside: avoid;
+  border: 1.5px solid var(--g300);
+  background: var(--white);
+}
+
+.editor .ProseMirror .bx-head {
+  padding: 1mm 4mm;
+  display: flex;
+  align-items: center;
+  gap: 2.5mm;
+  font-size: 14pt;
+  font-weight: 700;
+  color: var(--g900);
+  background: var(--g100);
+  border-bottom: 1px solid var(--g300);
+}
+
+.editor .ProseMirror .bx-head:empty::before {
+  content: '제목 입력';
+  color: var(--g400);
+  font-weight: 400;
+}
+
+.editor .ProseMirror .bx-body {
+  padding: 4mm 5mm;
+  background: var(--white);
+}
+
+.editor .ProseMirror .bx-body > :last-child {
+  margin-bottom: 0;
+}
+
+/* ── Box variants (mint/coral/blue/gray follow sample.html) ── */
+
+/* 학습 목표 (mint) */
+.editor .ProseMirror .bx[data-variant='obj'] {
+  border-color: var(--mint-600);
+}
+.editor .ProseMirror .bx[data-variant='obj'] .bx-head {
+  background: rgba(8, 107, 84, 0.15);
+  color: var(--mint-800);
+  border-bottom-color: rgba(8, 107, 84, 0.25);
+}
+
+/* 지난 시간 복습하기 (blue) */
+.editor .ProseMirror .bx[data-variant='review'] {
+  border-color: var(--blu-600);
+}
+.editor .ProseMirror .bx[data-variant='review'] .bx-head {
+  background: rgba(37, 99, 235, 0.15);
+  color: var(--blu-800);
+  border-bottom-color: var(--blu-bd);
+}
+
+/* 기출 유형 (coral) */
+.editor .ProseMirror .bx[data-variant='exam'] {
+  border-color: var(--cor-600);
+}
+.editor .ProseMirror .bx[data-variant='exam'] .bx-head {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--cor-800);
+  border-bottom-color: rgba(220, 38, 38, 0.2);
+}
+
+/* 부가설명 (gray) */
+.editor .ProseMirror .bx[data-variant='ref'] {
+  border-color: var(--g400);
+}
+.editor .ProseMirror .bx[data-variant='ref'] .bx-head {
+  background: var(--g200);
+  color: var(--g900);
+  border-bottom-color: var(--g300);
+}
+
+/* ── Box-level list markers — top level inside .bx-body ── */
+/* Numbered list: colored circle with white number (matches sample .quiz-list) */
+.editor .ProseMirror .bx-body > ol > li {
+  padding-left: 9mm;
+  margin-bottom: 2.5mm;
+}
+
+.editor .ProseMirror .bx-body > ol > li::before {
+  content: counter(ol1);
+  width: 6mm;
+  height: 6mm;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 11pt;
+  position: absolute;
+  left: 0;
+  top: 0.3mm;
+  background: var(--g600);
+}
+
+.editor .ProseMirror .bx[data-variant='obj'] .bx-body > ol > li::before {
+  background: var(--mint-600);
+}
+.editor .ProseMirror .bx[data-variant='review'] .bx-body > ol > li::before {
+  background: var(--blu-600);
+}
+.editor .ProseMirror .bx[data-variant='exam'] .bx-body > ol > li::before,
+.editor .ProseMirror .bx[data-variant='prob'] .bx-body > ol > li::before {
+  background: var(--cor-600);
+}
+.editor .ProseMirror .bx[data-variant='ref'] .bx-body > ol > li::before {
+  background: var(--g400);
+}
+
+/* Bulleted list: colored solid dot, larger than default */
+.editor .ProseMirror .bx-body > ul > li {
+  padding-left: 6mm;
+  margin-bottom: 2.5mm;
+}
+
+.editor .ProseMirror .bx-body > ul > li::before {
+  content: '';
+  width: 2.5mm;
+  height: 2.5mm;
+  border-radius: 50%;
+  position: absolute;
+  left: 1mm;
+  top: 2.4mm;
+  background: var(--g600);
+}
+
+.editor .ProseMirror .bx[data-variant='obj'] .bx-body > ul > li::before {
+  background: var(--mint-600);
+}
+.editor .ProseMirror .bx[data-variant='review'] .bx-body > ul > li::before {
+  background: var(--blu-600);
+}
+.editor .ProseMirror .bx[data-variant='exam'] .bx-body > ul > li::before,
+.editor .ProseMirror .bx[data-variant='prob'] .bx-body > ul > li::before {
+  background: var(--cor-600);
+}
+.editor .ProseMirror .bx[data-variant='ref'] .bx-body > ul > li::before {
+  background: var(--g400);
+}
+
+/* ── 대표 기출 문제 (coral) ── */
+.editor .ProseMirror .bx[data-variant='prob'] {
+  border: 1.5px solid var(--cor-600);
+}
+
+.editor .ProseMirror .bx[data-variant='prob'] .bx-head {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--cor-800);
+  border-bottom-color: rgba(220, 38, 38, 0.2);
+}
+
+/* ── Table ── */
+.editor .ProseMirror table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 3mm 0;
+  font-size: var(--fs-body);
+  border-right: 1.5px solid var(--g300);
+  border-bottom: 1.5px solid var(--g300);
+}
+
+.editor .ProseMirror td,
+.editor .ProseMirror th {
+  border: 1.5px solid var(--g300);
+  padding: 2mm 3mm;
+  text-align: center;
+  vertical-align: middle;
+  position: relative;
+  min-width: 1em;
+}
+
+.editor .ProseMirror th {
+  background: var(--g200);
+  font-weight: 700;
+  color: var(--g900);
+}
+
+.editor .ProseMirror td > p,
+.editor .ProseMirror th > p {
+  margin: 0;
+}
+.editor .ProseMirror td > p + p,
+.editor .ProseMirror th > p + p {
+  margin-top: 1mm;
+}
+
+.editor .ProseMirror td[data-valign='top'],
+.editor .ProseMirror th[data-valign='top'] {
+  vertical-align: top;
+}
+.editor .ProseMirror td[data-valign='middle'],
+.editor .ProseMirror th[data-valign='middle'] {
+  vertical-align: middle;
+}
+.editor .ProseMirror td[data-valign='bottom'],
+.editor .ProseMirror th[data-valign='bottom'] {
+  vertical-align: bottom;
+}
+
+.editor .ProseMirror td[data-hide-borders*='top'],
+.editor .ProseMirror th[data-hide-borders*='top'] {
+  border-top-color: transparent;
+}
+.editor .ProseMirror td[data-hide-borders*='right'],
+.editor .ProseMirror th[data-hide-borders*='right'] {
+  border-right-color: transparent;
+}
+.editor .ProseMirror td[data-hide-borders*='bottom'],
+.editor .ProseMirror th[data-hide-borders*='bottom'] {
+  border-bottom-color: transparent;
+}
+.editor .ProseMirror td[data-hide-borders*='left'],
+.editor .ProseMirror th[data-hide-borders*='left'] {
+  border-left-color: transparent;
+}
+
+.editor .ProseMirror .selectedCell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 147, 115, 0.12);
+  pointer-events: none;
+}
+
+.editor .ProseMirror .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--mint-600);
+  opacity: 0;
+  cursor: col-resize;
+}
+
+.editor .ProseMirror:hover .column-resize-handle {
+  opacity: 0.5;
+}
+
+.editor .ProseMirror .ex {
+  display: inline;
+}
+
+.editor .ProseMirror .ex-badge {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--amb-600, #f59e0b);
+  color: #fff;
+  font-size: 0.72em;
+  font-weight: 700;
+  vertical-align: middle;
+  position: relative;
+  top: -0.05em;
+  margin-right: 0.3em;
+  user-select: none;
+}
+
+.editor .ProseMirror sub,
+.editor .ProseMirror sup {
+  font-size: 0.72em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+.editor .ProseMirror sup {
+  top: -0.5em;
+}
+.editor .ProseMirror sub {
+  bottom: -0.25em;
+  top: auto;
+}
+
+.editor .ProseMirror .strong-em {
+  font-weight: 700;
+  text-decoration: underline;
+  color: #d92d20;
+}
+
+@media print {
+  .editor .ProseMirror .figure--selected .figure__inner,
+  .figure--selected .figure__inner,
+  .editor .ProseMirror .ProseMirror-selectednode,
+  .ProseMirror-selectednode {
+    outline: none !important;
+  }
+  .editor .ProseMirror .figure__resize,
+  .editor .ProseMirror .figure__size,
+  .figure__resize,
+  .figure__size {
+    display: none !important;
+  }
+  .editor .ProseMirror .selectedCell::after,
+  .selectedCell::after {
+    display: none !important;
+  }
+}
+
+/* ── Image float (text wrap) ── */
+.editor .ProseMirror .figure--align-left {
+  float: left;
+  margin: 0 4mm 2mm 0;
+  text-align: left;
+}
+.editor .ProseMirror .figure--align-right {
+  float: right;
+  margin: 0 0 2mm 4mm;
+  text-align: right;
+}
+.editor .ProseMirror .figure--align-none {
+  float: none;
+}
+
+/* Allow following blocks to clear floats only when explicitly needed.
+   For now, paragraphs naturally wrap around the float. */
+
+/* ── Image / figure ── */
+.editor .ProseMirror .figure {
+  margin: 2mm 0;
+  text-align: center;
+}
+
+.editor .ProseMirror .figure img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.editor .ProseMirror .figure__inner {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.editor .ProseMirror .figure__resize {
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 14px;
+  height: 14px;
+  background: var(--mint-600, #2bbf8a);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  cursor: nwse-resize;
+  opacity: 0;
+  transition: opacity 0.1s;
+  touch-action: none;
+}
+
+.editor .ProseMirror .figure:hover .figure__resize,
+.editor .ProseMirror .figure.figure--selected .figure__resize,
+.editor .ProseMirror .figure .figure__inner:hover .figure__resize {
+  opacity: 1;
+}
+
+.editor .ProseMirror .figure--selected .figure__inner {
+  outline: 2px solid var(--mint-600, #2bbf8a);
+  outline-offset: 2px;
+}
+
+.editor .ProseMirror .figure__size {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #fff;
+  border: 1px solid var(--g300, #d1d5db);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+  z-index: 5;
+  user-select: none;
+}
+
+.editor .ProseMirror .figure__size label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--g600, #4b5563);
+  font-weight: 600;
+}
+
+.editor .ProseMirror .figure__size input {
+  width: 52px;
+  padding: 2px 4px;
+  font: inherit;
+  border: 1px solid var(--g300, #d1d5db);
+  border-radius: 4px;
+  text-align: right;
+  -moz-appearance: textfield;
+}
+
+.editor .ProseMirror .figure__size input::-webkit-outer-spin-button,
+.editor .ProseMirror .figure__size input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.editor .ProseMirror .figure__lock {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 2px 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.editor .ProseMirror .figure__lock.is-on {
+  background: var(--mint-50, #e6f8f0);
+  border-color: var(--mint-600, #2bbf8a);
+}
+
+.editor .ProseMirror .figure__align {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: 4px;
+  border-left: 1px solid var(--g300, #d1d5db);
+  padding-left: 6px;
+}
+
+.editor .ProseMirror .figure__align button {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.editor .ProseMirror .figure__align button.is-active {
+  background: var(--mint-50, #e6f8f0);
+  border-color: var(--mint-600, #2bbf8a);
+}
+
+.editor .ProseMirror .figure__missing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6mm 8mm;
+  background: var(--g50);
+  border: 1px dashed var(--g300);
+  color: var(--g400);
+  font-size: 11pt;
+  border-radius: 4px;
+}
+
+/* ── Drag handle ── */
+.drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 22px;
+  color: var(--g400);
+  cursor: grab;
+  border-radius: 3px;
+  user-select: none;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -2px;
+  transition:
+    background 0.1s,
+    color 0.1s;
+}
+
+.drag-handle:hover {
+  background: var(--mint-lt);
+  color: var(--mint-600);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+/* ── Page break ── */
+.editor .ProseMirror div.page-break {
+  margin: 0;
+  height: 0;
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* .pg-push gets inline margin-top from the Pagination plugin decoration */
+
+.editor .ProseMirror div.page-break::before {
+  content: '— 페이지 나눔 —';
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1px 10px;
+  color: var(--g400);
+  font-size: 10pt;
+  border: 1px dashed var(--g400);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+.editor .ProseMirror div.page-break.ProseMirror-selectednode {
+  outline: 2px solid var(--mint-600);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media print {
+  .editor .ProseMirror div.page-break {
+    height: 0 !important;
+    margin: 0;
+    break-before: page;
+    page-break-before: always;
+  }
+  .editor .ProseMirror div.page-break::before {
+    display: none;
+  }
+}
+
+/* ── Drop cursor ── */
+.ProseMirror-dropcursor,
+.prosemirror-dropcursor-block {
+  background: var(--mint-600) !important;
+  height: 3px !important;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px rgba(13, 147, 115, 0.2);
+}
+
+@media print {
+  .drag-handle {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════
+   기출 문제로 응용하기
+══════════════════════════════ */
+.editor .ProseMirror .apply-title {
+  font-size: 20pt;
+  font-weight: 700;
+  color: var(--g900);
+  padding-bottom: 2mm;
+  border-bottom: 1.5px solid var(--g300);
+  margin: 4mm 0 5mm;
+}
+
+.editor .ProseMirror .apply-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11mm;
+  padding: 8mm 0;
+}
+
+.editor .ProseMirror .apply-left,
+.editor .ProseMirror .apply-right {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.editor .ProseMirror .apply-right {
+  border-left: 1px dashed var(--g300);
+  padding-left: 5.5mm;
+  margin-left: -5.5mm;
+}
+
+.editor .ProseMirror .apply-src {
+  text-align: right;
+  font-size: 10.5pt;
+  color: var(--g400);
+  font-weight: 500;
+  margin: 0 0 1mm 0;
+}
+
+.editor .ProseMirror .apply-head {
+  display: flex;
+  align-items: baseline;
+  gap: 3mm;
+  margin: 0 0 2mm;
+}
+
+.editor .ProseMirror .apply-num {
+  font-size: 18pt;
+  font-weight: 800;
+  color: var(--cor-600);
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.editor .ProseMirror .apply-q {
+  font-size: 13pt;
+  font-weight: 600;
+  color: var(--g900);
+  margin: 0;
+  flex: 1;
+}
+
+.editor .ProseMirror .apply-bogi {
+  border: 1px solid var(--g900);
+  padding: 3mm 4mm;
+  margin: 2mm 0;
+  border-radius: 1px;
+}
+
+.editor .ProseMirror .apply-bogi > p {
+  margin: 0;
+  font-size: 12pt;
+  line-height: 1.6;
+}
+
+.editor .ProseMirror .apply-left > ol {
+  list-style: none;
+  padding: 0;
+  margin: 3mm 0 0 0;
+  counter-reset: applyopt;
+}
+
+.editor .ProseMirror .apply-left > ol > li {
+  font-size: 13pt;
+  padding-left: 7mm;
+  position: relative;
+  counter-increment: applyopt;
+  margin-bottom: 1mm;
+}
+
+.editor .ProseMirror .apply-left > ol > li::before {
+  position: absolute;
+  left: 0;
+  font-size: 13pt;
+  color: var(--g900);
+}
+
+.editor .ProseMirror .apply-left > ol > li:nth-child(1)::before { content: "①"; }
+.editor .ProseMirror .apply-left > ol > li:nth-child(2)::before { content: "②"; }
+.editor .ProseMirror .apply-left > ol > li:nth-child(3)::before { content: "③"; }
+.editor .ProseMirror .apply-left > ol > li:nth-child(4)::before { content: "④"; }
+.editor .ProseMirror .apply-left > ol > li:nth-child(5)::before { content: "⑤"; }
+
+.editor .ProseMirror .apply-ans {
+  display: flex;
+  align-items: center;
+  gap: 2mm;
+  font-size: 13pt;
+  font-weight: 700;
+  margin: 0 0 3mm;
+}
+
+.editor .ProseMirror .apply-ans-badge {
+  width: 6.5mm;
+  height: 6.5mm;
+  border-radius: 50%;
+  background: var(--cor-600);
+  color: #fff;
+  font-size: 12pt;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.editor .ProseMirror .apply-ans-text {
+  flex: 1;
+}
+
+.editor .ProseMirror .apply-right > p {
+  font-size: 12pt;
+  line-height: 1.4;
+  margin: 0 0 2mm 0;
+}
+
+.editor .ProseMirror .apply-right > p:last-child {
+  margin-bottom: 0;
+}
+
+.editor .ProseMirror .expl-tag {
+  display: inline-block;
+  color: var(--g900);
+  font-size: 12pt;
+  font-weight: 700;
+  margin-right: 1mm;
+  line-height: 1.3;
+}
+
+.editor .ProseMirror .expl-tag::before {
+  margin-right: 1.2mm;
+}
+.editor .ProseMirror .expl-tag.t-concept::before { content: "📚"; }
+.editor .ProseMirror .expl-tag.t-exam::before    { content: "🎯"; }
+.editor .ProseMirror .expl-tag.t-problem::before { content: "🔍"; }
+.editor .ProseMirror .expl-tag.t-options::before { content: "✅"; }

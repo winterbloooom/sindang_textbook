@@ -1,0 +1,39 @@
+.workspace {
+  min-height: 100vh;
+  background: #d4d4d4;
+  padding: 24px 280px 24px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: auto;
+}
+
+.rightpanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f7;
+  border-left: 1px solid #d7d7dc;
+  z-index: 20;
+}
+
+@media print {
+  html, body {
+    background: #fff !important;
+  }
+  .workspace {
+    background: #fff !important;
+    padding: 0 !important;
+    display: block;
+    overflow: visible !important;
+    min-height: 0;
+  }
+  .rightpanel,
+  .top-menu {
+    display: none !important;
+  }
+}

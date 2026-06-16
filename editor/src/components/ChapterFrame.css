@@ -1,0 +1,228 @@
+/* Outer chapter container — holds page shells (background) and overlay (content) */
+.chapter-frame {
+  position: relative;
+  width: 210mm;
+  margin: 0 auto;
+  font-size: var(--fs-body);
+  color: var(--g900);
+}
+
+/* Sentinel: invisible 297mm-tall element to measure 1 page in CSS px */
+.chapter-frame__sentinel {
+  position: absolute;
+  width: 0;
+  height: 297mm;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Stacked white A4 cards, one per logical page */
+.chapter-frame__shells {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-shell {
+  position: relative;
+  width: 100%;
+  height: 297mm;
+  background: var(--white);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Page footer (page number + separator) — sits at bottom of each shell */
+.page-shell__footer {
+  position: absolute;
+  left: 20mm;
+  right: 20mm;
+  bottom: 14mm;
+  padding-top: 3mm;
+  border-top: 1.5px solid var(--g300);
+  text-align: center;
+}
+
+.page-shell__num {
+  font-size: 13pt;
+  font-weight: 600;
+  color: var(--g400);
+  user-select: none;
+}
+
+/* Editor content overlay — sits on top of all shells, flowing naturally */
+.chapter-frame__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 16mm 20mm 16mm;
+  z-index: 1;
+}
+
+.chapter-frame__header {
+  margin-bottom: 5mm;
+}
+
+/* Chev-nav (과목 → 편 breadcrumb) */
+.chev-nav {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 4mm;
+  font-size: 11pt;
+}
+
+.chev-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 8mm;
+  padding: 0 3.5mm;
+  background: var(--g100);
+  color: var(--g600);
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.chev-item::after {
+  content: '';
+  position: absolute;
+  right: -3.3mm;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 4mm solid transparent;
+  border-bottom: 4mm solid transparent;
+  border-left: 3.5mm solid var(--g100);
+  z-index: 2;
+}
+
+.chev-item:not(:first-child) {
+  margin-left: -3.5mm;
+  padding-left: 10mm;
+}
+
+.chev-item:nth-child(1) { z-index: 3; }
+.chev-item:nth-child(2) { z-index: 2; }
+.chev-item:nth-child(3) { z-index: 1; }
+
+.chev-subject {
+  background: var(--mint-600);
+  color: var(--white);
+  font-weight: 700;
+  border-radius: 5px 0 0 5px;
+}
+.chev-subject::after {
+  border-left-color: var(--mint-600);
+}
+
+.chev-part {
+  background: var(--white);
+  color: var(--mint-700);
+  font-weight: 700;
+  border: 1.5px solid var(--mint-600);
+}
+.chev-part::after {
+  border-left-color: var(--white);
+}
+
+.chev-nav .chev-item:last-child {
+  border-radius: 0 5px 5px 0;
+}
+.chev-nav .chev-item:last-child::after {
+  display: none;
+}
+
+/* Chapter title with number badge */
+.chapter-title {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  color: var(--g900);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  padding-bottom: 5mm;
+  border-bottom: 1.5px solid var(--g300);
+}
+
+.sec-badge {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sec-badge-body {
+  background: var(--mint-600);
+  color: var(--white);
+  width: 8mm;
+  height: 8mm;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14pt;
+  font-weight: 700;
+  border-radius: 2px 0 0 2px;
+  line-height: 1;
+}
+
+.sec-badge-arrow {
+  width: 0;
+  height: 0;
+  border-top: 4mm solid transparent;
+  border-bottom: 4mm solid transparent;
+  border-left: 4mm solid var(--mint-600);
+}
+
+.chapter-frame__body {
+  position: relative;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm 20mm 18mm 20mm;
+    @bottom-center {
+      content: counter(page);
+      font-family: var(--font);
+      font-size: 13pt;
+      color: #888;
+      border-top: 1.5px solid #d1d5db;
+      padding-top: 3mm;
+      width: 170mm;
+      text-align: center;
+      vertical-align: top;
+    }
+  }
+  html, body {
+    background: #fff !important;
+  }
+  .chapter-frame {
+    width: auto;
+  }
+  .chapter-frame__shells,
+  .chapter-frame__sentinel {
+    display: none;
+  }
+  .chapter-frame__overlay {
+    position: static;
+    padding: 0;
+  }
+  /* Pagination plugin pushes blocks using screen-pixel margin-top.
+     In print this would create huge gaps — let @page handle pagination. */
+  .editor .ProseMirror .pg-push,
+  .pg-push {
+    margin-top: 0 !important;
+  }
+  .editor .ProseMirror div.page-break,
+  div.page-break {
+    height: 0 !important;
+    margin: 0 !important;
+    break-before: page;
+    page-break-before: always;
+  }
+  .editor .ProseMirror div.page-break::before,
+  div.page-break::before {
+    display: none;
+  }
+}

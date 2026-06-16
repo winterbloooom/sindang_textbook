@@ -1,0 +1,77 @@
+:root {
+  /* ─── Mintlify-based tokens (synced with template/examples/sample.html) ─── */
+  --mint-600: #0d9373;
+  --mint-700: #086b54;
+  --mint-800: #065b48;
+  --mint-50: #f0fdf9;
+  --mint-lt: #e6f7f2;
+  --mint-bd: #d1fae5;
+
+  --amb-600: #d97706;
+  --amb-800: #92400e;
+  --amb-lt: #fef3c7;
+  --amb-bd: #fde68a;
+
+  --blu-600: #2563eb;
+  --blu-800: #1e40af;
+  --blu-lt: #eff6ff;
+  --blu-bd: #bfdbfe;
+
+  --pur-600: #7c3aed;
+  --pur-800: #5b21b6;
+  --pur-lt: #f5f3ff;
+  --pur-bd: #ddd6fe;
+
+  --cor-600: #dc2626;
+  --cor-800: #991b1b;
+  --cor-lt: #fef2f2;
+  --cor-bd: #fecaca;
+
+  --g900: #000000;
+  --g600: #000000;
+  --g400: #9ca3af;
+  --g300: #d1d5db;
+  --g200: #e5e7eb;
+  --g100: #f3f4f6;
+  --g50: #f9fafb;
+  --white: #ffffff;
+
+  --font:
+    'Pretendard Variable', 'Pretendard', -apple-system, 'Noto Sans KR', sans-serif;
+
+  --fs-body: 13pt;
+  --fs-sm: 13pt;
+  --fs-sub: 14pt;
+  --fs-h3: 14pt;
+  --fs-h2: 18pt;
+  --fs-h1: 24pt;
+  --fs-badge: 11pt;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+html {
+  font-size: 13pt;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font);
+  background: #d4d4d4;
+  color: var(--g600);
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}

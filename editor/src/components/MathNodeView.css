@@ -1,0 +1,51 @@
+.math--inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.math--block {
+  display: block;
+  text-align: center;
+  margin: 1mm 0;
+}
+
+.math--block .katex-display {
+  margin: 0 !important;
+}
+
+.math--block .math__render {
+  display: inline-block;
+}
+
+.math__render {
+  cursor: pointer;
+  padding: 0 1px;
+  border-radius: 2px;
+}
+
+.math__render:hover {
+  background: rgba(91, 141, 238, 0.1);
+}
+
+.math__render:empty::before {
+  content: '수식 (클릭 입력)';
+  color: #aab1bc;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.math__input {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: 0.9em;
+  padding: 1px 4px;
+  border: 1px solid #5b8dee;
+  border-radius: 3px;
+  background: #fff;
+  outline: none;
+  min-width: 120px;
+}
+
+.math--block .math__input {
+  display: inline-block;
+  min-width: 60%;
+}

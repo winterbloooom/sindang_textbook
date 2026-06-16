@@ -1,0 +1,158 @@
+.sidebar {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  background: #f5f5f7;
+  padding: 20px 18px;
+  overflow-y: auto;
+  font-size: 13px;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.sidebar__heading {
+  margin: 0 0 14px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+}
+
+.sidebar__field {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.sidebar__field > span {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.sidebar__field input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.sidebar__field input:focus {
+  outline: none;
+  border-color: #5b8dee;
+}
+
+.sidebar__readout {
+  padding: 6px 8px;
+  background: #fff;
+  border: 1px solid #e5e5ea;
+  border-radius: 4px;
+  color: #333;
+}
+
+.sidebar__btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 8px 12px;
+  border: 1px solid #5b8dee;
+  background: #5b8dee;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.sidebar__btn:hover {
+  background: #4876d2;
+  border-color: #4876d2;
+}
+
+.sidebar__btn--secondary {
+  background: #fff;
+  color: #5b8dee;
+}
+
+.sidebar__btn--secondary:hover {
+  background: #eef2ff;
+  border-color: #5b8dee;
+}
+
+.sidebar__sep {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #e5e5ea;
+}
+
+.sidebar__save {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
+  min-height: 16px;
+}
+
+.sidebar__save--saving {
+  color: #888;
+}
+
+.sidebar__save--saved {
+  color: #2e7d32;
+}
+
+.sidebar__save--error {
+  color: #c62828;
+}
+
+.sidebar__layout-picker {
+  display: flex;
+  gap: 4px;
+}
+
+.sidebar__layout-btn {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #c7cbd1;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #333;
+}
+
+.sidebar__layout-btn:hover:not(:disabled) {
+  border-color: #5b8dee;
+  color: #5b8dee;
+}
+
+.sidebar__layout-btn.is-active {
+  background: #5b8dee;
+  border-color: #5b8dee;
+  color: #fff;
+}
+
+.sidebar__layout-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sidebar__row {
+  display: flex;
+  gap: 8px;
+}
+
+.sidebar__row .sidebar__field {
+  flex: 1;
+  margin-bottom: 12px;
+}
+
+.sidebar__field--narrow {
+  flex: 0 0 64px;
+}
+
+@media print {
+  .sidebar {
+    display: none;
+  }
+}
